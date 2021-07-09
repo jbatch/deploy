@@ -1,4 +1,14 @@
-import { Entity, CreateDateColumn, UpdateDateColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Column,
+  BaseEntity,
+  ManyToOne,
+  JoinColumn,
+  AfterInsert,
+} from 'typeorm';
+import commandRunnerService from '../services/command-runner-service';
 import { AppCommand } from './AppCommand';
 
 @Entity()
@@ -24,4 +34,9 @@ export class CommandRun extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @AfterInsert()
+  runCommand() {
+    commandRunnerService.runCommand(this.id);
+  }
 }

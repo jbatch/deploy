@@ -10,6 +10,7 @@ import middleware from './routes/middleware';
 import routes from './routes';
 import runStartupTasks from './startup';
 import { configureSockets } from './sockets/sockets';
+import startCronJobs from './jobs';
 
 const logger = pino();
 
@@ -35,6 +36,7 @@ async function main() {
     server.listen(port, async () => {
       logger.info(`✅ Listening on port ${port}`);
       await runStartupTasks();
+      // await startCronJobs();
     });
   } catch (error) {
     console.log(error);

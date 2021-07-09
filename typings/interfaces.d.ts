@@ -10,6 +10,7 @@ declare global {
     id: string;
     name: string;
     commands: IAppCommand[];
+    rootDir: string;
   }
 
   interface IAppCommand {

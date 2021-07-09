@@ -161,11 +161,12 @@ async function getApp(appId: string): Promise<IApp> {
   return mapApp(await App.findOne({ where: { id: appId }, relations: ['commands'] }));
 }
 
-function mapApp(app: App): IApp {
+function mapApp({ id, name, rootDir, commands }: App): IApp {
   return {
-    id: app.id,
-    name: app.name,
-    commands: app.commands.map((c) => mapCommand(c)),
+    id: id,
+    name: name,
+    commands: commands.map((c) => mapCommand(c)),
+    rootDir: rootDir,
   };
 }
 
